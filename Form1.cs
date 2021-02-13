@@ -29,6 +29,7 @@ namespace Sapper
                 Thread.Sleep(1000);
             }
             Application.Restart();
+            Environment.Exit(0);
         }
         private void ShowAll()
         {
@@ -87,7 +88,8 @@ namespace Sapper
 
         private void Button_Click(object sender, EventArgs e)
         {
-            if((sender as Button).BackColor == Color.White)
+            int white_button_quanity = 0;
+            if ((sender as Button).BackColor == Color.White)
             {
                 if ((sender as Button).Name == "Clear")
                 {
@@ -101,7 +103,22 @@ namespace Sapper
                     this.Update();
                     this.Restart();
                 }
-            (sender as Button).Text = (sender as Button).Name;
+                (sender as Button).Text = (sender as Button).Name;
+            }
+            foreach (var item in buttons)
+            {
+                if(item.Name != "Bomb!")
+                {
+                    if (item.BackColor == Color.White)
+                    {
+                        white_button_quanity++;
+                    }
+                }
+            }
+            if(white_button_quanity == 0)
+            {
+                MessageBox.Show("You Won!!!", "You Won!!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Restart();
             }
         }
     }
